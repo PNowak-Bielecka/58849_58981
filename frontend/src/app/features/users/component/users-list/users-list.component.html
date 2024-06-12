@@ -1,0 +1,57 @@
+<div class="user" fxLayout="row" fxLayoutAlign="space-between center">
+    <h3 class="user__title">Użytkownicy</h3>
+    <button mat-fab (click)="openModal()"><mat-icon>add</mat-icon></button>
+</div>
+
+<table mat-table [dataSource]="dataSource">
+
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID </th>
+        <td mat-cell *matCellDef="let element"> {{ element.id }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element"> {{ element.email | lowercase}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+        <th mat-header-cell *matHeaderCellDef> Imie </th>
+        <td mat-cell *matCellDef="let element"> {{ element.firstName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+        <th mat-header-cell *matHeaderCellDef> Nazwisko </th>
+        <td mat-cell *matCellDef="let element"> {{ element.lastName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="birthDate">
+        <th mat-header-cell *matHeaderCellDef> Data Urodzenia </th>
+        <td mat-cell *matCellDef="let element"> {{ element.birthDate | date: 'dd-MM-YYYY'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="isEmployee">
+        <th mat-header-cell *matHeaderCellDef> Kierowca </th>
+        <td mat-cell *matCellDef="let element"><mat-checkbox [checked]="element.isEmployee" disabled></mat-checkbox></td>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef> Rola </th>
+        <td mat-cell *matCellDef="let element"> {{ element.role }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="menu">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-icon-button color="accent" [matMenuTriggerFor]="reservationMenu"><mat-icon>more_vert</mat-icon></button>
+            <mat-menu #reservationMenu='matMenu'>
+                <button mat-menu-item (click)="openModal(element)">Edit</button>
+                <button mat-menu-item (click)="onDelete(element.id)">Delete</button>
+            </mat-menu>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+</table>
