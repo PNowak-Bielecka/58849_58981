@@ -1,0 +1,38 @@
+table {
+    width: 100%;
+}
+
+tr:last-child {
+    width: 25px;
+}
+
+td:last-child {
+    width: 25px;
+}
+
+.reservations {
+    padding: 8px 64px;
+    font-size: 2em;
+    font-weight: 700;
+    width: 100%;
+
+    &__empty {
+        background: #e2dada;
+        padding: 32px;
+        text-align: center;
+    }
+
+    &__error {
+        margin: 0;
+        color: #d42f24;
+        font-weight: 700;
+        font-size: 2em;
+        text-transform: uppercase;
+    }
+
+    &__title {
+        margin: 0;
+        font-weight: 500;
+        font-size: 1.6rem;
+    }
+}
