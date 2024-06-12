@@ -1,0 +1,56 @@
+<h2 mat-dialog-title>{{data?.title}}</h2>
+<mat-dialog-content>
+    <div class="add-stop">
+        <form [formGroup]="addRouteForm">
+            <!--<mat-form-field appearance="outline">
+                <mat-label>Nazwa </mat-label>
+                <input matInput type="text" placeholder="np. Dworzec Główny Kraków" formControlName="name">
+                <mat-error *ngIf="addRouteForm.controls['name'].hasError('required')">To pole jest wymagane</mat-error>
+            </mat-form-field>-->
+            <mat-form-field appearance="outline">
+                <input matInput
+                       type="text"
+                       placeholder="Przystanek początkowy"
+                       formControlName="startId"
+                       [matAutocomplete]="start"
+                >
+                <mat-autocomplete #start="matAutocomplete">
+                    <mat-option *ngFor="let stop of stops" [value]="stop.id">{{ stop.id }} |<b> {{ stop.name }}</b></mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <input matInput
+                       type="text"
+                       placeholder="Przystanek końcowy"
+                       formControlName="endId"
+                       [matAutocomplete]="end"
+                >
+                <mat-autocomplete #end="matAutocomplete">
+                    <mat-option *ngFor="let stop of stops" [value]="stop.id">{{ stop.id }} |<b> {{ stop.name }}</b></mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Data podróży</mat-label>
+                <input matInput formControlName="arrival_date" [matDatepicker]="arrival_date">
+                <mat-datepicker-toggle matSuffix [for]="arrival_date"></mat-datepicker-toggle>
+                <mat-datepicker #arrival_date [touchUi]="isMobile | async"></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline" >
+                <input matInput
+                       type="text"
+                       placeholder="Wybierz Kierowce"
+                       formControlName="driverId"
+                       [matAutocomplete]="auto"
+                >
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of options" [value]="option.id">{{ option.id }} |<b> {{ option.email}}</b> {{ option.firstName }} {{ option.lastName }}</mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </form>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button mat-dialog-close>Anuluj</button>
+    <button mat-raised-button [mat-dialog-close]="true" color="primary" (click)="onSave()">Zapisz</button>
+</mat-dialog-actions>

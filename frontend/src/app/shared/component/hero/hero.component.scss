@@ -1,0 +1,47 @@
+.hero {
+    width: 100%;
+    height: 100vh;
+    padding-top: 56px;
+    display: block;
+    background: url('../../../../assets/hero/hero_vertical.jpg') no-repeat center center;
+    background-size: cover;
+
+    @media screen and (min-width: 600px) {
+        padding-top: 64px;
+    }
+
+    @media screen and (min-width: 920px) {
+        background: url('../../../../assets/hero/hero_horizontal.jpg');
+    }
+}
+
+.searchbox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.178);
+
+    &__divform {
+        min-width: 100px;
+        background: #fff;
+        border-radius: 15px;
+        display: flex;
+        flex-direction: column;
+        padding: 16px;
+    }
+
+    &__title > h3 {
+        font-size: 2em;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 32px;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+    }
+}

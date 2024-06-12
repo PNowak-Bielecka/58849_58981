@@ -1,0 +1,26 @@
+<div class="hero">
+    <div class="searchbox">
+        <div class="searchbox__divform">
+            <div class="searchbox__title">
+                <h3>Wyszukiwarka połączenie</h3>
+            </div>
+            <form class="searchbox__form" [formGroup]="searchForm" (ngSubmit)="onSave()">
+                <mat-form-field>
+                    <mat-label>Skąd</mat-label>
+                    <input matInput type="text" placeholder="Miasto początkowe" formControlName="from">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Do</mat-label>
+                    <input matInput type="text" placeholder="Miasto docelowe" formControlName="to">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Data podróży</mat-label>
+                    <input matInput formControlName="arrival_date" [matDatepicker]="arrivalDate">
+                    <mat-datepicker-toggle matSuffix [for]="arrivalDate"></mat-datepicker-toggle>
+                    <mat-datepicker #arrivalDate [touchUi]="isMobile | async"></mat-datepicker>
+                </mat-form-field>
+                <button mat-raised-button type="submit" color="primary">Wyszukaj</button>
+            </form>
+        </div>
+    </div>
+</div>
