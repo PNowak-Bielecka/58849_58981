@@ -1,0 +1,16 @@
+.user {
+    padding: 8px 64px;
+    font-size: 2em;
+    font-weight: 700;
+    width: 100%;
+
+    &__title {
+        margin: 0;
+        font-weight: 500;
+        font-size: 1.6rem;
+    }
+}
+
+table {
+    width: 100%;
+}

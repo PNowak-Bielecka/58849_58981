@@ -1,0 +1,18 @@
+.register-card {
+    background: transparent;
+    box-shadow: none;
+
+    &__header {
+        justify-content: center;
+        margin-bottom: 8px;
+    }
+
+    &__title {
+        padding: 8px;
+    }
+
+    &__button {
+        width: 100%;
+        padding: 4px 24px;
+    }
+}

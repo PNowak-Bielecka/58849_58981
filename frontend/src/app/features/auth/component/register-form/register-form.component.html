@@ -1,0 +1,49 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div fxLayout="column">
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput type="email" placeholder="twoja_nazwa@domena.pl" formControlName="email">
+            <mat-error *ngIf="registerForm.controls.email.hasError('required')">Adres email jest wymagany</mat-error>
+            <mat-error *ngIf="registerForm.controls.email.hasError('email')">Niepoprawny format adresu email</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Hasło</mat-label>
+            <input matInput type="password" placeholder="Hasło" formControlName="password">
+            <mat-error *ngIf="registerForm.controls.password.hasError('required')">Pole hasła jest wymagane.</mat-error>
+            <mat-error *ngIf="registerForm.controls.password.hasError('minlength')">Hasło jest zbyt któtkie.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Powtórz hasło</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" placeholder="Powtórz hasło" formControlName="confirmPassword" [appFieldsmatch]="registerForm.get('password')">
+            <mat-error *ngIf="registerForm.controls.confirmPassword.hasError('password_match')">Hasła nie są identyczne.</mat-error>
+            <button mat-icon-button matSuffix (click)="hide = !hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Imię</mat-label>
+            <input matInput type="text" placeholder="Twoje imie" formControlName="firstName">
+            <mat-error *ngIf="registerForm.controls.firstName.hasError('required')">Pole imie jest wymagane.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Nazwisko</mat-label>
+            <input matInput type="text" placeholder="Twoje nazwisko" formControlName="lastName">
+            <mat-error *ngIf="registerForm.controls.lastName.hasError('required')">Pole nazwisko jest wymagane.</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Data urodzenia</mat-label>
+            <input matInput formControlName="birthDate" [matDatepicker]="birthDate">
+            <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+            <mat-datepicker #birthDate [touchUi]="isMobile | async"></mat-datepicker>
+            <mat-error *ngIf="registerForm.controls.birthDate.hasError('required')">Data urodzenia jest wymagana.</mat-error>
+        </mat-form-field>
+    </div>
+    <div [style.margin-bottom.px]="'16'">
+        <mat-checkbox formControlName="privacyPolicy" required>Regulamin korzystania z usług.</mat-checkbox>
+
+    </div>
+    <button mat-raised-button color="primary" class="register-form__button" type="submit">Zarejestruj</button>
+</form>
+<div>
+    Posiadasz konto? <a routerLink="../login" class="register-form__link">Zaloguj!</a>
+</div>
