@@ -1,0 +1,92 @@
+<mat-sidenav-container class="sidenav" hasBackdrop="true">
+    <mat-sidenav mode="side" class="sidenav__side" #sidenav>
+        <div class="sidenav__container" fxFlex fxLayout="column">
+
+            <mat-toolbar *ngIf="isAuthenticated == true" fxLayoutAlign="space-between center">
+                <button mat-icon-button>
+                    <mat-icon>settings</mat-icon>
+                </button>
+                <button mat-icon-button (click)="sidenav.close()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar>
+
+            <mat-toolbar *ngIf="isAuthenticated == false" fxLayoutAlign="end center">
+                <button mat-icon-button (click)="sidenav.close()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-toolbar>
+
+            <div class="sidenav__account" *ngIf="isAuthenticated == true">
+                <img class="sidenav__avatar" src="https://cdn.iconscout.com/icon/free/png-256/free-user-1648810-1401302.png?f=webp" alt="avatar">
+                <div class="sidenav__accountbox">
+                    <span>{{ user.firstName }}</span>
+                    <span>{{ user.lastName }}</span>
+                </div>
+                <div class="sidenav__actionbox">
+                    <button mat-raised-button color="accent" (click)="logout()">Wyloguj</button>
+                </div>
+            </div>
+            <button class="sidenav__button" mat-raised-button color="primary" title="Zaloguj aby zobaczyć swój profil" *ngIf="isAuthenticated == false" routerLink="auth/login">ZALOGUJ</button>
+            <button class="sidenav__button" mat-raised-button color="primary" title="Zaloguj aby zobaczyć swój profil" *ngIf="isAuthenticated == false" routerLink="auth/register">Zarejestruj</button>
+            <mat-divider></mat-divider>
+            <button class="sidenav__button" mat-button disabled>Usługi</button>
+            <mat-divider></mat-divider>
+            <button class="sidenav__button" routerLink="/profile/tickets" mat-button *ngIf="isAuthenticated == true">Moje Rezerwacje</button>
+            <button class="sidenav__button" routerLink="/profile" mat-button *ngIf="isAuthenticated == true">Moje Konto</button>
+            <mat-divider></mat-divider>
+            <button class="sidenav__button" mat-button routerLink="/driver" *ngIf="isAuthenticated == true && isDriver == true">Panel Pracownika</button>
+            <button class="sidenav__button" mat-button routerLink="/admin" *ngIf="isAuthenticated == true">Panel Administratora</button>
+            <mat-divider></mat-divider>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav__content">
+
+        <mat-toolbar class="mainnav" color="primary" fxLayoutAlign.gt-sm="space-between center">
+            <button mat-icon-button fxHide.gt-sm (click)="sidenav.open()"><mat-icon>menu</mat-icon></button>
+
+            <app-logo routerLink="/"></app-logo>
+
+            <div class="" fxLayout="row" fxHide fxShow.gt-sm>
+                <mat-nav-list class="mainnav__nav" fxHide fxShow.gt-sm fxLayout="row" fxLayoutAlign="space-between center">
+                    <!--<a mat-list-item class="mainnav__item mainnav__item--disabled" disabled>Usługi</a>
+                    <a mat-list-item class="mainnav__item mainnav__item--disabled" disabled>Firma</a>-->
+                    <a mat-list-item class="mainnav__item mainnav__item--disabled" disabled>Usługi</a>
+                </mat-nav-list>
+                <div class="accountbox">
+
+                    <mat-nav-list fxLayout="row" [style.padding-top]="0">
+                        <mat-divider vertical="true"></mat-divider>
+                        <mat-list-item class="accountbox__item" style="margin-top:16px !important;">
+                            <a mat-list-item *ngIf="isAuthenticated == false" class="mainnav__item" routerLink='/auth/login'><mat-icon>account_circle</mat-icon></a>
+                            <button mat-button *ngIf="isAuthenticated == true" [matMenuTriggerFor]="accountMenu"><mat-icon>account_circle</mat-icon></button>
+                        </mat-list-item>
+
+                        <mat-list-item class="accountbox__item mainnav__item--disabled" disabled *ngIf="isAuthenticated == true">
+                            <span>Cześć {{ user.firstName }}!</span>
+                        </mat-list-item>
+                    </mat-nav-list>
+
+                </div>
+            </div>
+        </mat-toolbar>
+
+        <!--<app-hero class="herobar"></app-hero>-->
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-menu #accountMenu="matMenu">
+    <button mat-menu-item routerLink="/driver" *ngIf="isDriver == true">Panel Pracownika</button>
+    <button mat-menu-item routerLink="/admin" *ngIf="role == 'admin'">Panel Administratora</button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item routerLink="/profile">Moje Konto</button>
+    <button mat-menu-item routerLink="/profile/tickets">Moje Rezerwacje</button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="logout()">Wyloguj</button>
+</mat-menu>
+
+<!--<div *ngIf="authService.isLogged | async">
+    Zalogowany
+</div>-->
