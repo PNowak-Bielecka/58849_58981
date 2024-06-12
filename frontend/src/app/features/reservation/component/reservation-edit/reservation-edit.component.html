@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>{{data?.title}}</h2>
+<mat-dialog-content>
+    <form [formGroup]="form">
+        <mat-form-field appearance="outline">
+            <input matInput
+                   type="text"
+                   placeholder="Numer trasy"
+                   formControlName="routeId"
+                   [matAutocomplete]="travels"
+            >
+            <mat-autocomplete #travels="matAutocomplete">
+                <mat-option *ngFor="let route of routes" [value]="route.id"><b>{{ route.start.name }}</b> =><b> {{ route.end.name }}</b></mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option value="NEW">Nowy</mat-option>
+                <mat-option value="ACCEPTED">Akceptowana</mat-option>
+                <mat-option value="IN_PROGRESS">W trakcie realizacji</mat-option>
+                <mat-option value="REJECTED">Odrzucona</mat-option>
+                <mat-option value="CONFIRMED">Potwierdzona</mat-option>
+                <mat-option value="USED">Zrealizowana</mat-option>
+                <mat-option value="CANCELED">Anulowana</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="outline" >
+            <input matInput
+                   type="text"
+                   placeholder="Wybierz użytkownika"
+                   formControlName="userId"
+                   [matAutocomplete]="auto"
+            >
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of options" [value]="option.id">{{ option.id }} |<b> {{ option.email}}</b> {{ option.firstName }} {{ option.lastName }}</mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close>Cancel</button>
+        <button mat-raised-button [mat-dialog-close]="true" color="primary" (click)="onSave()">Save</button>
+</mat-dialog-actions>

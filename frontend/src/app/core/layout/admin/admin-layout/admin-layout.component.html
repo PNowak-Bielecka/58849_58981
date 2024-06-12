@@ -1,0 +1,65 @@
+<mat-toolbar color="primary" fxLayoutAlign="space-between center">
+
+    <span>PANEL ADMINISTRATORA</span>
+
+    <div class="accountbox">
+
+        <mat-list fxLayout="row" [style.padding-top]="0">
+            <mat-divider vertical="true"></mat-divider>
+            <mat-list-item class="accountbox__item">
+                <a mat-list-item [matMenuTriggerFor]="accountMenu"><mat-icon>account_circle</mat-icon></a>
+            </mat-list-item>
+
+            <mat-list-item class="accountbox__item">
+                {{ user.firstName }}
+            </mat-list-item>
+        </mat-list>
+
+    </div>
+
+    <mat-menu #accountMenu="matMenu">
+        <button mat-menu-item routerLink="/">Strona Główna</button>
+        <mat-divider *ngIf="isDriver == true"></mat-divider>
+        <button mat-menu-item routerLink="/driver" *ngIf="isDriver == true">Panel Pracownika</button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item routerLink="/profile">Moje Konto</button>
+        <button mat-menu-item routerLink="/profile/tickets">Moje Rezerwacje</button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">Wyloguj</button>
+    </mat-menu>
+
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav">
+    <mat-sidenav mode="side" opened class="sidenav__side">
+
+        <div class="sidemenu">
+
+            <mat-nav-list>
+                <mat-list-item fxLayoutAlign="center" routerLink="reservations">
+                    <a>Rezerwacje</a>
+                </mat-list-item>
+                <mat-list-item fxLayoutAlign="center" routerLink="users">
+                    <a>Użytkownicy</a>
+                </mat-list-item>
+                <mat-list-item fxLayoutAlign="center" routerLink="routes">
+                    <a>Trasy</a>
+                </mat-list-item>
+                <mat-list-item fxLayoutAlign="center" routerLink="stops">
+                    <a>Przystanki</a>
+                </mat-list-item>
+            </mat-nav-list>
+
+        </div>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav__content">
+
+        <router-outlet name="admin"></router-outlet>
+        <router-outlet></router-outlet>
+
+
+    </mat-sidenav-content>
+
+</mat-sidenav-container>
