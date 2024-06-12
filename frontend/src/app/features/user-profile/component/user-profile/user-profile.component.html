@@ -1,0 +1,33 @@
+<div class="profilebox">
+    <h2 class="profilebox__title">Twój profil</h2>
+    <div class="profilebox__container">
+        <form class="profilebox__content" [formGroup]="profileForm">
+            <mat-form-field appearance="fill">
+                <mat-label>Imię</mat-label>
+                <input matInput class="profilebox__input" placeholder="Imię" formControlName="firstName">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Nazwisko</mat-label>
+                <input matInput placeholder="Nazwisko" formControlName="lastName">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Adres E-mail</mat-label>
+                <input matInput placeholder="Adres E-mail" formControlName="email">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Data urodzenia</mat-label>
+                <input matInput formControlName="birthDate" [matDatepicker]="birthDate" formControlName="birthDate">
+                <mat-datepicker-toggle matSuffix [for]="birthDate"></mat-datepicker-toggle>
+                <mat-datepicker #birthDate [touchUi]="isMobile | async"></mat-datepicker>
+            </mat-form-field>
+
+            <div class="profilebox__action" *ngIf="edited == false">
+                <button mat-raised-button color="primary" (click)="enableForm()">Zmień dane</button>
+            </div>
+            <div class="profilebox__action" *ngIf="edited == true">
+                <button mat-raised-button color="primary" (click)="onSave()">Zapisz</button>
+                <button mat-raised-button color="secondary" (click)="cancel()">Anuluj edycje</button>
+            </div>
+        </form>
+    </div>
+</div>
